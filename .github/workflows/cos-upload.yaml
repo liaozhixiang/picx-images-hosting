@@ -32,8 +32,10 @@ jobs:
 
       - name: Sync files to COS
         run: |
-          coscli sync "${GITHUB_WORKSPACE}/" cos://default/ \
-            --recursive \
-            --exclude ".git/*" \
-            --exclude ".github/*" \
-            --exclude ".gitignore"
+          cd "${GITHUB_WORKSPACE}"
+
+          for dir in [0-9][0-9][0-9][0-9] resources; do
+            if [ -d "$dir" ]; then
+              coscli sync "$dir/" "cos://default/$dir/" --recursive
+            fi
+          done
