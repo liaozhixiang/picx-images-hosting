@@ -33,7 +33,7 @@ jobs:
       - name: Sync files to COS
         run: |
           coscli sync ./ cos:///${{ secrets.COS_BUCKET }}/ \
-            --skipmd5 \
+            -r \
             --exclude ".git/*" \
             --exclude ".github/*" \
             --exclude ".gitignore"
