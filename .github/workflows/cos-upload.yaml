@@ -5,13 +5,15 @@ on:
     branches:
       - master
 
+  workflow_dispatch:
+
 jobs:
   upload:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install coscli
         run: |
@@ -30,6 +32,7 @@ jobs:
       - name: Sync files to COS
         run: |
           coscli sync ./ cos:///${{ secrets.COS_BUCKET }}/ \
+            --skipmd5 \
             --exclude ".git/*" \
             --exclude ".github/*" \
             --exclude ".gitignore"
