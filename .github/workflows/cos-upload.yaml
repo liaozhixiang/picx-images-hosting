@@ -32,8 +32,8 @@ jobs:
 
       - name: Sync files to COS
         run: |
-          coscli sync ./ cos:///${{ secrets.COS_BUCKET }}/ \
-            -r \
+          coscli sync "${GITHUB_WORKSPACE}/" cos://default/ \
+            --recursive \
             --exclude ".git/*" \
             --exclude ".github/*" \
             --exclude ".gitignore"
